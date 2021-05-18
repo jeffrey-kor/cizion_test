@@ -1,14 +1,11 @@
 import { UserDto } from "../controller/dtos/UserDto";
-import { Builder } from "builder-pattern";
-import { UserInterface } from "../domain/interfaces/User.interface";
 import {UserRepository} from "../domain/repository/UserRepository";
 import {User} from "../domain/entity/User";
-import {Response} from "express";
-import {Res} from "routing-controllers";
 
 export class UserService {
 
   private userRepository: UserRepository;
+
   constructor(
     private readonly usersDto: UserDto,
     private readonly usersRepository: UserRepository
