@@ -44,17 +44,6 @@ export class User extends BaseEntity {
   @OneToMany(() => Dislikes, (dislikes) => dislikes.user)
   public dislikes: Dislikes[];
 
-
-  constructor(user_id: number, user_name: string, user_password: string, user_phone: string, user_email: string, user_address: string) {
-    super();
-    this.user_id = user_id;
-    this.user_name = user_name;
-    this.user_password = user_password;
-    this.user_phone = user_phone;
-    this.user_email = user_email;
-    this.user_address = user_address;
-  }
-
   get getUserId(): number { return this.user_id; }
   get getUserName(): string { return this.user_name; }
   get getUserPassword(): string { return this.user_password; }
