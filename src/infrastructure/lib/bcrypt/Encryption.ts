@@ -1,4 +1,5 @@
 import * as bcrypt from "bcrypt";
+import {UserRepository} from "../../../domain/repository/UserRepository";
 
 export class Encryption {
 
@@ -11,4 +12,8 @@ export class Encryption {
     return bcrypt.salt(password);
   }
 
+  async verifyPassword(requestPassword: string, savedPassword: string): Promise<boolean> {
+    const match = await bcrypt.compare(requestPassword, savedPassword);
+    return (match) ? true : false;
+  }
 }
