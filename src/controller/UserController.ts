@@ -21,8 +21,9 @@ export class UserController {
   }
 
   @Post()
-  async register(@Body() userDto: UserDto) {
-    return await this.userService.membershipRegister(userDto);
+  async register(@Req() userDto: UserDto, @Res() res) {
+    const response = await this.userService.membershipRegister(userDto);
+    return res.status(201).send(response);
   }
 
   @Delete()
