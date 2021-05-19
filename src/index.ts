@@ -2,11 +2,24 @@ import "reflect-metadata";
 import { createConnection, useContainer } from "typeorm";
 import { createExpressServer } from "routing-controllers";
 // import { Container } from 'typedi';
+import SwaggerJsDoc from "swagger-jsdoc";
+import SwaggerUi from "swagger-ui-express";
 
-// import * as cors from "cors"
-// const app = express();
-// app.use(cors());
-// app.use(express.json());
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: "Cizion backend Comment development API",
+      description: "cizion api information",
+      contact: {
+        name: "jeffrey"
+      },
+      servers: ["http:localhost:5000"]
+    }
+  },
+  apis: ["index.ts"]
+}
+
+const swaggerDocs = SwaggerJsDoc(swaggerOptions);
 
 // useContainer(Container);
 
@@ -19,6 +32,7 @@ createConnection()
       // middlewares: [__dirname + "./infrastructure/middlewares/*.ts"],
       // interceptors: [__dirname + "./infrastructure/interceptors/*.ts"],
     })
+    app.use("/api-docs", SwaggerUi.serve, SwaggerUi.setup(swaggerDocs))
     app.listen(5000, () => {
       console.log(`Server is running on ${5000}`);
     });
