@@ -1,7 +1,7 @@
 import {Get, Req, Res, Post, Delete, JsonController, Body} from "routing-controllers";
 import { Response } from "express";
 import { UserDto } from "./dtos/UserDto";
-import {UserService} from "../service/UserService";
+import { UserService } from "../service/UserService";
 
 // import { Service } from "typedi";
 
