@@ -56,4 +56,25 @@ export class CommentController {
     await this.commentService.deleteComment(req);
   }
 
+  @Get("/comment/like/:id")
+  async likeComment(@Param("id") req: number) {
+    await this.commentService.like(req)
+  }
+
+  @Get("/comment/like/cancel/:id")
+  async cancelLikeComment(@Param("id") req: number) {
+    await this.commentService.cancelLike(req);
+  }
+
+  @Get("/comment/dislike/:id")
+  async disLikeComment(@Param("id") req: number) {
+    await this.commentService.dislike(req);
+  }
+
+  @Get("/comment/dislike/cancel/:id")
+  async cancelDisLikeComment(@Param("id") req: number) {
+    await this.commentService.cancelDislike(req);
+  }
+
+
 }
