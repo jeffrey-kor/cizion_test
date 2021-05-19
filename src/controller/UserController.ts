@@ -15,6 +15,15 @@ export class UserController {
     this.userService = usersService;
   }
 
+  /**
+   * @swagger
+   * /test:
+   *  get:
+   *    description: Request Test
+   *    response:
+   *      "200":
+   *        description: A Test successful response
+   */
   @Get("/users")
   async test(@Req() request: Response, @Res() response: Response) {
     return response.send("Hello, world!. This is User Controller..");

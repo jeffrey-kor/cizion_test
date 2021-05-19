@@ -1,5 +1,4 @@
 import * as bcrypt from "bcrypt";
-import {UserRepository} from "../../../domain/repository/UserRepository";
 
 export class Encryption {
 

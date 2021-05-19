@@ -37,8 +37,8 @@ export class UserService {
 
       await this.userRepository.save(user);
       const token = await this.jwt.generateJwt(user);
-
-      return { user, token };
+      const refreshToken = await this.jwt.generateRefreshJwtToken(user);
+      return { user, token, refreshToken };
 
     } catch (e) {
       console.error(e);
