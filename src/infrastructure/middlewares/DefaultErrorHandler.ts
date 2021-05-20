@@ -3,15 +3,16 @@ import { NextFunction, Request, Response } from "express";
 
 @Middleware({ type: "after" })
 export class DefaultErrorHandler implements ExpressMiddlewareInterface {
-  error(error: any, request: Request, response: Response, next: NextFunction) {
-    if (error instanceof HttpError) {
-      if (error.httpCode < 500) {
-        console.error(error.message);
+
+  use(request: any, response: any, next: (err?: any) => any): any {
+    if (request instanceof HttpError) {
+      if (request.httpCode < 500) {
+        console.error(request.message);
         return next();
       }
     }
 
-    console.error(error);
+    console.error(request);
     next();
   }
 }

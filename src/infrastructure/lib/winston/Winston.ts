@@ -4,7 +4,9 @@ import { transports } from "winston";
 export class Winston {
 
   async logger() {
-    winston.createLogger({
+    return winston.createLogger({
+      level: "info",
+      format: winston.format.json(),
       transports: [
         new winston.transports.File({
           filename: "error.log",
@@ -20,9 +22,6 @@ export class Winston {
           format: winston.format.combine(winston.format.colorize(), winston.format.simple())
         })
       ],
-      rejectionHandlers: [
-        new transports.File({ filename: "reject.log" })
-      ]
     })
   }
 }
