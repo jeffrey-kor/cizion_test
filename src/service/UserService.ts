@@ -1,11 +1,11 @@
-import { Req, Res } from "routing-controllers";
 import { Builder } from "builder-pattern";
 import { UserDto } from "../controller/dtos/UserDto";
 import { UserRepository } from "../domain/repository/UserRepository";
 import { Encryption } from "../infrastructure/lib/bcrypt/Encryption";
 import { JsonWebToken } from "../infrastructure/lib/jsonwebtoken/JsonWebToken";
-import {Response} from "express";
+import {Service} from "typedi";
 
+@Service()
 export class UserService {
 
   private userRepository: UserRepository;

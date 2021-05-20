@@ -1,12 +1,12 @@
-import {Get, Req, Res, Post, Delete, JsonController, Body} from "routing-controllers";
+import { Get, Req, Res, Post, Delete, JsonController, UseBefore } from "routing-controllers";
 import { Response } from "express";
 import { UserDto } from "./dtos/UserDto";
 import { UserService } from "../service/UserService";
+import { DefaultErrorHandler } from "../infrastructure/middlewares/DefaultErrorHandler";
 
-// import { Service } from "typedi";
-
-// @Service()
 @JsonController()
+@UseBefore(DefaultErrorHandler)
+@UseAfter()
 export class UserController {
 
   private userService: UserService;
@@ -15,15 +15,6 @@ export class UserController {
     this.userService = usersService;
   }
 
-  /**
-   * @swagger
-   * /test:
-   *  get:
-   *    description: Request Test
-   *    response:
-   *      "200":
-   *        description: A Test successful response
-   */
   @Get("/users")
   async test(@Req() request: Response, @Res() response: Response) {
     return response.send("Hello, world!. This is User Controller..");
