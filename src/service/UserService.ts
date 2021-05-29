@@ -1,50 +1,45 @@
 import { Builder } from "builder-pattern";
-import { UserDto } from "../controller/dtos/UserDto";
+import { UserRegisterDto } from "../controller/dtos/UserRegisterDto";
 import { UserRepository } from "../domain/repository/UserRepository";
-import { InjectRepository } from "typeorm-typedi-extensions";
 import { Encryption } from "../infrastructure/lib/bcrypt/Encryption";
-import { JsonWebToken } from "../infrastructure/lib/jsonwebtoken/JsonWebToken";
-import { Service } from "typedi";
+import { Inject, Service } from "typedi";
+import { UserInterface } from "../domain/interfaces/User.interface";
 import { User } from "../domain/entity/User";
-import { getRepository } from "typeorm";
 
 @Service()
 export class UserService {
 
   private encryption: Encryption;
-  private jwt: JsonWebToken;
 
-  constructor(@InjectRepository() private usersRepository: UserRepository) {
+  constructor(@Inject("UserRepository") private usersRepository: UserRepository) {
     this.encryption = new Encryption();
-    this.jwt = new JsonWebToken();
   }
 
-  async membershipRegister(userDto: UserDto) {
+  async membershipRegister(userRegisterDto: UserRegisterDto): Promise<UserInterface> {
 
-    // const hashedPassword = await this.encryption.hash(userDto.user_password);
-    const user = new User(
-      userDto.user_id,
-      userDto.user_name,
-      userDto.user_password,
-      userDto.user_phone,
-      userDto.user_email,
-      userDto.user_address
-    );
+    const hashedPassword = await this.encryption.hash(userRegisterDto.getUserPassword);
+    const saltedPassword = await this.encryption.salt(hashedPassword);
 
-    // const saltedPassword = this.encryption.salt(hashedPassword);
-    // const token = await this.jwt.generateJwt(user);
-    // const refreshToken = await this.jwt.generateRefreshJwtToken(user);
+    const user = await Builder<UserInterface>(User)
+      .user_id(userRegisterDto.getUserId)
+      .user_name(userRegisterDto.getUserName)
+      .user_password(hashedPassword)
+      .user_phone(userRegisterDto.getUserPhone)
+      .user_email(userRegisterDto.getUserEmail)
+      .user_address(userRegisterDto.getUserAddress)
+      .password_salt(saltedPassword)
+      .build();
 
-    return await getRepository(User)
-      .createQueryBuilder()
-      .insert()
-      .into(User)
-      .values(user)
-      .execute();
+    console.log(user);
+
+    await this.usersRepository.save(user);
+
+    return user;
+
   }
 
-  async membershipDropOut(req: UserDto) {}
+  async membershipDropOut(req: UserRegisterDto) {}
 
-  async getAllMembers(req: UserDto) {}
+  async getAllMembers(req: UserRegisterDto) {}
 
 }

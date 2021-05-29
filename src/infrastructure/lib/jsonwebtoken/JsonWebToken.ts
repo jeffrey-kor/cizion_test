@@ -1,4 +1,4 @@
-import { UserDto } from "../../../controller/dtos/UserDto";
+import { UserRegisterDto } from "../../../controller/dtos/UserRegisterDto";
 import { sign } from "jsonwebtoken";
 import { Winston } from "../winston/Winston";
 import { Req } from "routing-controllers";
@@ -12,7 +12,7 @@ export class JsonWebToken {
     this.logger = new Winston().logger();
   }
 
-  async generateJwtToken(userDto: UserDto) {
+  async generateJwtToken(userDto: UserRegisterDto) {
     const userInfo = { ...userDto };
     const jwtSecretKey = process.env.JWT_SECRET;
 
@@ -34,7 +34,7 @@ export class JsonWebToken {
 
   }
 
-  async generateRefreshJwtToken(userDto: UserDto) {
+  async generateRefreshJwtToken(userDto: UserRegisterDto) {
     const userInfo = { ...userDto };
     const jwtSecretKey = process.env.JWT_SECRET;
 

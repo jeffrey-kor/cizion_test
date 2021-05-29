@@ -2,12 +2,12 @@ import * as bcrypt from "bcrypt";
 
 export class Encryption {
 
-  async hash(password: string) {
-    password = bcrypt.hashSync(password, 12);
+  async hash(password: string): Promise<string> {
+    password = bcrypt.hash(password);
     return password;
   }
 
-  async salt(password: string) {
+  async salt(password: string): Promise<string> {
     return bcrypt.salt(password);
   }
 
