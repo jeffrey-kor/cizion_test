@@ -39,10 +39,7 @@ export class UserService {
 
   }
 
-  async membershipDropOut(req: UserRegisterDto): Promise<string> {
-
-    return "";
-  }
+  async membershipDropOut(req: UserRegisterDto) {}
 
   async getAllMembers(req: UserRegisterDto) {}
 
