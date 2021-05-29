@@ -1,9 +1,11 @@
 import { UserLoginDto } from "../controller/dtos/UserLoginDto";
-import { Body, Req, UnauthorizedError } from "routing-controllers";
+import { Body, UnauthorizedError } from "routing-controllers";
 import { Encryption } from "../infrastructure/lib/bcrypt/Encryption";
 import { UserRepository } from "../domain/repository/UserRepository";
 import { JsonWebToken } from "../infrastructure/lib/jsonwebtoken/JsonWebToken";
+import {Service} from "typedi";
 
+@Service()
 export class AuthService {
 
   private encryption: Encryption;

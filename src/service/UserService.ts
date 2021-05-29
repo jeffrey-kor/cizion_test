@@ -1,53 +1,45 @@
-import { Req, Res } from "routing-controllers";
 import { Builder } from "builder-pattern";
-import { UserDto } from "../controller/dtos/UserDto";
+import { UserRegisterDto } from "../controller/dtos/UserRegisterDto";
 import { UserRepository } from "../domain/repository/UserRepository";
 import { Encryption } from "../infrastructure/lib/bcrypt/Encryption";
-import { JsonWebToken } from "../infrastructure/lib/jsonwebtoken/JsonWebToken";
-import {Response} from "express";
+import { Inject, Service } from "typedi";
+import { UserInterface } from "../domain/interfaces/User.interface";
+import { User } from "../domain/entity/User";
 
+@Service()
 export class UserService {
 
-  private userRepository: UserRepository;
   private encryption: Encryption;
-  private jwt: JsonWebToken;
 
-  constructor(
-    private readonly usersDto: UserDto,
-    private readonly usersRepository: UserRepository,
-  ) {
-    this.userRepository = usersRepository;
+  constructor(@Inject("UserRepository") private usersRepository: UserRepository) {
     this.encryption = new Encryption();
-    this.jwt = new JsonWebToken();
   }
 
-  async membershipRegister(userDto: UserDto): Promise<any> {
-    try {
-      const hashedPassword = this.encryption.hash(userDto.getUserPassword);
-      const saltedPassword = this.encryption.salt(hashedPassword); // 이건 따로 저장
+  async membershipRegister(userRegisterDto: UserRegisterDto): Promise<UserInterface> {
 
-      const user = await Builder(UserDto)
-        .setUserId(userDto.getUserId)
-        .setUserName(userDto.getUserName)
-        .setUserPassword(hashedPassword)
-        .setUserPhone(userDto.getUserPhone)
-        .setUserEmail(userDto.getUserEmail)
-        .setUserAddress(userDto.getUserAddress)
-        .build()
+    const hashedPassword = await this.encryption.hash(userRegisterDto.getUserPassword);
+    const saltedPassword = await this.encryption.salt(hashedPassword);
 
-      await this.userRepository.save(user);
-      const token = await this.jwt.generateJwt(user);
-      const refreshToken = await this.jwt.generateRefreshJwtToken(user);
-      return { user, token, refreshToken };
+    const user = await Builder<UserInterface>(User)
+      .user_id(userRegisterDto.getUserId)
+      .user_name(userRegisterDto.getUserName)
+      .user_password(hashedPassword)
+      .user_phone(userRegisterDto.getUserPhone)
+      .user_email(userRegisterDto.getUserEmail)
+      .user_address(userRegisterDto.getUserAddress)
+      .password_salt(saltedPassword)
+      .build();
 
-    } catch (e) {
-      console.error(e);
-    }
+    console.log(user);
+
+    await this.usersRepository.save(user);
+
+    return user;
 
   }
 
-  // async membershipDropOut() {
-  //
-  // }
+  async membershipDropOut(req: UserRegisterDto) {}
+
+  async getAllMembers(req: UserRegisterDto) {}
 
 }

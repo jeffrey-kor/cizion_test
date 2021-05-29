@@ -2,7 +2,9 @@ import { Body } from "routing-controllers";
 import { PostRepository } from "../domain/repository/PostRepository";
 import { CommentRepository } from "../domain/repository/CommentRepository";
 import { Comment } from "../domain/entity/Comment";
+import { Service } from "typedi";
 
+@Service()
 export class CommentService {
 
   private postRepository: PostRepository;
