@@ -27,10 +27,4 @@ export class UserController {
     return res.status(201).send(response);
   }
 
-  @Get()
-  async getAllMembers(@Req() userDto, @Res() res) {
-    const response = await this.userService.getAllMembers(userDto);
-    return res.status(201).send(response);
-  }
-
 }
