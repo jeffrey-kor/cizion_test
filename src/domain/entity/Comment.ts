@@ -7,10 +7,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm";
-import {User} from "./User";
-import {Post} from "./Post";
-import {Likes} from "./Likes";
-import {Dislikes} from "./Dislikes";
+import { User } from "./User";
+import { Post } from "./Post";
+import { Likes } from "./Likes";
+import { Dislikes } from "./Dislikes";
 
 @Entity({ name: "comments" })
 export class Comment extends BaseEntity {

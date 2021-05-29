@@ -18,6 +18,7 @@ export class UserService {
   async membershipRegister(userRegisterDto: UserRegisterDto): Promise<UserInterface> {
 
     const hashedPassword = await this.encryption.hash(userRegisterDto.getUserPassword);
+
     const saltedPassword = await this.encryption.salt(hashedPassword);
 
     const user = await Builder<UserInterface>(User)
@@ -38,7 +39,10 @@ export class UserService {
 
   }
 
-  async membershipDropOut(req: UserRegisterDto) {}
+  async membershipDropOut(req: UserRegisterDto): Promise<string> {
+
+    return "";
+  }
 
   async getAllMembers(req: UserRegisterDto) {}
 
