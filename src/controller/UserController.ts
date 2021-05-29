@@ -2,12 +2,9 @@ import {Get, Req, Res, Post, Delete, JsonController, UseBefore, Body} from "rout
 import { Response } from "express";
 import { UserRegisterDto } from "./dtos/UserRegisterDto";
 import { UserService } from "../service/UserService";
-import {Inject, Service} from "typedi";
-import {Encryption} from "../infrastructure/lib/bcrypt/Encryption";
-import {JsonWebToken} from "../infrastructure/lib/jsonwebtoken/JsonWebToken";
+import { Inject, Service } from "typedi";
 
 @Service()
-// @UseBefore(DefaultErrorHandler)
 @JsonController("/user")
 export class UserController {
 
@@ -24,12 +21,6 @@ export class UserController {
   @Delete()
   async membershipDropOut(@Req() userDto, @Res() res) {
     const response = await this.userService.membershipDropOut(userDto);
-    return res.status(201).send(response);
-  }
-
-  @Get()
-  async getAllMembers(@Req() userDto, @Res() res) {
-    const response = await this.userService.getAllMembers(userDto);
     return res.status(201).send(response);
   }
 

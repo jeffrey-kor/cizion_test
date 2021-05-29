@@ -5,6 +5,7 @@ import { Encryption } from "../infrastructure/lib/bcrypt/Encryption";
 import { Inject, Service } from "typedi";
 import { UserInterface } from "../domain/interfaces/User.interface";
 import { User } from "../domain/entity/User";
+import { UserDeleteDto } from "../controller/dtos/UserDeleteDto";
 
 @Service()
 export class UserService {
@@ -39,8 +40,9 @@ export class UserService {
 
   }
 
-  async membershipDropOut(req: UserRegisterDto) {}
+  async membershipDropOut(userDeleteDto: UserDeleteDto): Promise<void> {
+    await this.usersRepository.findUserByEmail(userDeleteDto);
+  }
 
-  async getAllMembers(req: UserRegisterDto) {}
 
 }
