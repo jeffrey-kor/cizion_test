@@ -1,8 +1,8 @@
 import { Delete, Get, Controller, Post, Put, Req, Param, Res } from "routing-controllers";
-import { CommentService } from "../service/CommentService";
-import { CommentWriteDto } from "./dtos/CommentWriteDto";
-import { CommentEditDto } from "./dtos/CommentEditDto";
-import { CommentDeleteDto } from "./dtos/CommentDeleteDto";
+import { CommentService } from "../../usecase/service/CommentService";
+import { CommentWriteDto } from "../dtos/Comment/CommentWriteDto";
+import { CommentEditDto } from "../dtos/Comment/CommentEditDto";
+import { CommentDeleteDto } from "../dtos/Comment/CommentDeleteDto";
 // import { Service } from "typedi";
 
 // @Service()

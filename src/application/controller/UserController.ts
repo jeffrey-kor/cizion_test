@@ -1,7 +1,7 @@
 import {Get, Req, Res, Post, Delete, JsonController, UseBefore, Body} from "routing-controllers";
 import { Response } from "express";
-import { UserRegisterDto } from "./dtos/UserRegisterDto";
-import { UserService } from "../service/UserService";
+import { UserRegisterDto } from "../dtos/User/UserRegisterDto";
+import { UserService } from "../../usecase/service/UserService";
 import { Inject, Service } from "typedi";
 
 @Service()

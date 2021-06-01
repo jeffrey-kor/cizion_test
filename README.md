@@ -17,3 +17,14 @@
 - []: Test 코드를 통한 단위 테스트 및 클린 코드 지향 (Testable and Clean code) 
 - []: 재사용 가능한 객체를 위한 캡슐화와 모듈화 필요성 (Re-usable APIs for Comment System) 
 - []: 객체들의 협력 관계를 통한 객체 지향 설계 (Collaborate with each objects) 
+
+#### What I Should I have to add..
+- Social Login
+- Real-time push comments
+- Email push Alarm
+- Quote comment dragging
+- Add images, video on comments
+- Manager console
+- Data Analysis and Searching System
+- Deployment with Amazon Web Service
+- Build CI/CD pipe lane 

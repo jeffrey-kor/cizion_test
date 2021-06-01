@@ -15,4 +15,5 @@ export class Encryption {
     const match = await bcrypt.compare(requestPassword, savedPassword);
     return (match) ? true : false;
   }
+
 }

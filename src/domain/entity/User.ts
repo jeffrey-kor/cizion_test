@@ -48,18 +48,27 @@ export class User extends BaseEntity {
   public dislikes: Dislikes[];
 
 
-  constructor(user_id: number, user_name: string, user_password: string, user_phone: string, user_email: string, user_address: string, password_salt: string) {
-    super();
-    this.user_id = user_id;
-    this.user_name = user_name;
-    this.user_password = user_password;
-    this.user_phone = user_phone;
-    this.user_email = user_email;
-    this.user_address = user_address;
-    this.password_salt = password_salt;
-  }
+  // constructor(user_id: number, user_name: string, user_password: string, user_phone: string, user_email: string, user_address: string, password_salt: string) {
+  //   super();
+  //   this.user_id = user_id;
+  //   this.user_name = user_name;
+  //   this.user_password = user_password;
+  //   this.user_phone = user_phone;
+  //   this.user_email = user_email;
+  //   this.user_address = user_address;
+  //   this.password_salt = password_salt;
+  // }
 
-  // public static UserBuilder = class {
+
+  get getUserId(): number { return this.user_id; }
+  get getUserName(): string { return this.user_name; }
+  get getUserPassword(): string { return this.user_password; }
+  get getUserPhone(): string { return this.user_phone; }
+  get getUserEmail(): string { return this.user_email; }
+  get getUserAddress(): string { return this.user_address; }
+  get getPasswordSalt(): string { return this.password_salt; }
+
+// public static UserBuilder = class {
   //
   // }
 

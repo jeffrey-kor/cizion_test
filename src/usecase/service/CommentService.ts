@@ -1,7 +1,7 @@
 import { Body } from "routing-controllers";
-import { PostRepository } from "../domain/repository/PostRepository";
-import { CommentRepository } from "../domain/repository/CommentRepository";
-import { Comment } from "../domain/entity/Comment";
+import { PostRepository } from "../../domain/repository/PostRepository";
+import { CommentRepository } from "../../domain/repository/CommentRepository";
+import { Comment } from "../../domain/entity/Comment";
 import { Service } from "typedi";
 
 @Service()
@@ -70,7 +70,7 @@ export class CommentService {
   async blockDuplicatedComment() {
     // 최신순으로 정렬한 후 달린 댓글 중 10개만 가져와서,
     // 지금 작성한 유저의 id와 컨텐트의 내용이 일치하면,
-    // 중복이라고 띄어줌
+    // 중복이라고 띄어줌 -> 이것도 문제가 많아
 
   }
 

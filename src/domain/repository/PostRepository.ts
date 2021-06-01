@@ -1,7 +1,7 @@
 import { EntityRepository, Repository } from "typeorm";
 import { Post } from "../entity/Post";
 import { Service } from "typedi";
-import { PostGetAllCommentDto } from "../../controller/dtos/PostGetAllCommentDto";
+import { PostGetAllCommentDto } from "../../application/dtos/Post/PostGetAllCommentDto";
 
 @Service()
 @EntityRepository(Post)

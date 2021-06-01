@@ -1,5 +1,5 @@
 import { IsNotEmpty, Length } from "class-validator";
-import { UserInterface } from "../../domain/interfaces/User.interface";
+import { UserInterface } from "../../../domain/interfaces/User.interface";
 import { Service } from "typedi";
 
 @Service()

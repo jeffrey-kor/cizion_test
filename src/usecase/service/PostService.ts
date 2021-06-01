@@ -1,7 +1,7 @@
 import { Inject, Service } from "typedi";
-import { PostGetAllCommentDto } from "../controller/dtos/PostGetAllCommentDto";
-import { PostRepository } from "../domain/repository/PostRepository";
-import { Post } from "../domain/entity/Post";
+import { PostGetAllCommentDto } from "../../application/dtos/Post/PostGetAllCommentDto";
+import { PostRepository } from "../../domain/repository/PostRepository";
+import { Post } from "../../domain/entity/Post";
 
 @Service()
 export class PostService {

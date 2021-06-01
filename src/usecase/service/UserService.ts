@@ -1,11 +1,11 @@
 import { Builder } from "builder-pattern";
-import { UserRegisterDto } from "../controller/dtos/UserRegisterDto";
-import { UserRepository } from "../domain/repository/UserRepository";
-import { Encryption } from "../infrastructure/lib/bcrypt/Encryption";
+import { UserRegisterDto } from "../../application/dtos/User/UserRegisterDto";
+import { UserRepository } from "../../domain/repository/UserRepository";
+import { Encryption } from "../../infrastructure/lib/bcrypt/Encryption";
 import { Inject, Service } from "typedi";
-import { UserInterface } from "../domain/interfaces/User.interface";
-import { User } from "../domain/entity/User";
-import { UserDeleteDto } from "../controller/dtos/UserDeleteDto";
+import { UserInterface } from "../../domain/interfaces/User.interface";
+import { User } from "../../domain/entity/User";
+import { UserDeleteDto } from "../../application/dtos/User/UserDeleteDto";
 
 @Service()
 export class UserService {

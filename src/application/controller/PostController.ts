@@ -1,7 +1,7 @@
 import { Get, JsonController, Req } from "routing-controllers";
-import { PostService } from "../service/PostService";
+import { PostService } from "../../usecase/service/PostService";
 import { Inject } from "typedi";
-import { PostGetAllCommentDto } from "./dtos/PostGetAllCommentDto";
+import { PostGetAllCommentDto } from "../dtos/Post/PostGetAllCommentDto";
 
 @JsonController("/post")
 export class PostController {
