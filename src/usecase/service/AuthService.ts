@@ -1,20 +1,24 @@
 import { UserLoginRequestDto } from "../../application/dtos/Auth/UserLoginRequestDto";
-import { UnauthorizedError } from "routing-controllers";
 import { Encryption } from "../../infrastructure/lib/bcrypt/Encryption";
 import { UserRepository } from "../../domain/repository/UserRepository";
 import { JsonWebToken } from "../../infrastructure/lib/jsonwebtoken/JsonWebToken";
 import { Inject, Service } from "typedi";
 import { UserLoginResponseDto } from "../../application/dtos/Auth/UserLoginResponseDto";
 import { Builder } from "builder-pattern";
+import { RedisConfig } from "../../infrastructure/lib/redis/RedisConfig";
 
 @Service()
 export class AuthService {
+
   constructor(
     @Inject("UserRepository") private userRepository: UserRepository,
     @Inject("JsonWebToken") private jwt: JsonWebToken,
     @Inject("Encryption") private encryption: Encryption,
+    @Inject("RedisConfig") private redis: RedisConfig,
     @Inject("UserLoginResponseDto") private userLoginResponseDto: UserLoginResponseDto
-  ) {}
+  ) {
+    this.redis = new RedisConfig();
+  }
 
 
   async login(userLoginDto: UserLoginRequestDto) {
@@ -52,7 +56,7 @@ export class AuthService {
     if (user && isEqualUser && userLoginDto.getUserToken === undefined) { // 최초 로그인 사용자일 때,
       const accessToken = await this.jwt.generateJwtToken(userLoginDto);
       const refreshToken = await this.jwt.generateJwtRefreshToken(userLoginDto);
-      // redis에 키와 밸류:토큰을 저장할 생각하고 있어야함
+      this.redis.redisClient.set(userLoginDto.getUserEmail, accessToken);
       return Builder<UserLoginResponseDto>()
         .setUserId(user.getUserId)
         .setUserEmail(user.getUserEmail)
@@ -64,7 +68,7 @@ export class AuthService {
     if (user && isEqualUser && userLoginDto.getUserToken !== undefined) { // 최초 로그인 사용자가 아닐 때,
       const token: string = userLoginDto.getUserToken;
       const verifyUser: boolean = await this.jwt.verify(token);
-      // redis에 키와 밸류:토큰을 저장할 생각하고 있어야함
+      // this.redis.redisClient.set(userLoginDto.getUserEmail, userLoginDto.getUserToken);
       if (verifyUser) {
 
       }
@@ -94,6 +98,7 @@ export class AuthService {
   }
 
   async logout() {
+    // 이메일과 토큰을 기반으로 일치하는지 확인해서 공부하는 것.
     // Redis 를 통해 expire time 고려해서 자동으로 삭제되도록 조정하는 것.
 
   }
